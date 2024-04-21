@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package vocalize;
+
+service UserService {
+    rpc Signin (SigninRequest) returns (SigninResponse);
+    rpc GetToken (GetTokenRequest) returns (GetTokenResponse);
+    rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoResponse);
+}
+
+message SigninRequest {}
+
+message SigninResponse {
+    string url = 1;
+    string signinToken = 2;
+}
+
+message GetTokenRequest {
+    string siginToken = 1;
+}
+
+// 認証ボタンがまだ押されていないとき エラー14
+// 認証画面でキャンセルされたとき　エラー1
+message GetTokenResponse {
+    optional string token = 1;
+}
+
+message GetUserInfoRequest {
+    string sessionToken = 1;
+}
+
+message GetUserInfoResponse {
+    string username = 1;
+    string avatar = 2;
+}

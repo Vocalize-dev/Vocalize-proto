@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package vocalize;
+
+service GuildService {
+    rpc GetGuilds (GetGuildsRequest) returns (GetGuildsResponse);
+    rpc ChangeGuildSetting (ChangeGuildSettingRequest) returns (ChangeGuildSettingResponse);
+}
+
+message GetGuildsRequest {
+    string sessionToken = 1;
+    bool includeSettings = 2;
+}
+
+message GetGuildsResponse {
+    repeated GuildInfo guilds = 1;
+}
+
+message GuildInfo {
+    string guildId = 1;
+    string guildName = 2;
+    optional GuildSetting setting = 3;
+}
+
+//TODO: サーバー設定 全部optionalにしてChangeGuildSettingで使い回せるようにする
+message GuildSetting {
+    
+}
+
+message ChangeGuildSettingRequest {
+    string sessionToken = 1;
+    string guildId = 2;
+    GuildSetting setting = 3;
+}
+
+message ChangeGuildSettingResponse {
+    GuildInfo guild = 1;
+}

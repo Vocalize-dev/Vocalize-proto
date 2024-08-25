@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package vocalize;
+import "guild.proto";
+
+service ConnectService {
+    rpc Connect (ConnectRequest) returns (ConnectResponse);
+    rpc ConnectionInfoRequestStream (ConnectionInfoStream) returns (ConnectionInfoRequest);
+    rpc ConnectionInfoSend (ConnectionInfoSendRequest) returns (ConnectionInfoSendResponse);
+}
+
+// Botのconnectコマンドが送られたとき使う
+message ConnectRequest {
+    string token = 1;
+    string guildId = 2;
+    string userId = 3;
+}
+
+message ConnectResponse {
+    string connectionToken = 1;
+    string guildId = 2;
+}
+
+
+// TODO: 命名がキモいのでなんとかする
+message ConnectionInfoStream {
+    string token = 1;
+}
+
+message ConnectionInfoRequest {
+    string connectionToken = 1;
+    GuildInfo guild = 2;
+}
+
+message ConnectionInfo {
+    GuildInfo guild = 1;
+    string endpoint = 2;
+    string gatewayToken = 3;
+}
+
+message ConnectionInfoSendRequest {
+    string connectionToken = 1;
+    ConnectionInfo info = 2;
+}
+
+message ConnectionInfoSendResponse {
+    
+}
